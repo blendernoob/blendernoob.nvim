@@ -3,7 +3,17 @@
 
 -- See the kickstart.nvim README for more information
 return {
+  --MEL syntax hilighting
+  { dir = '~/.config/nvim/vim-mel' },
+
   'catppuccin/nvim',
   name = 'catppuccin',
   priority = 1000,
+
+  'rcarriga/nvim-dap-ui',
+  dependencies = { 'mfussenegger/nvim-dap', 'nvim-neotest/nvim-nio' },
+
+  'goolord/alpha-nvim',
+
+  'vimwiki/vimwiki',
 }

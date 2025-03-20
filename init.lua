@@ -104,7 +104,7 @@ vim.g.have_nerd_font = true
 vim.opt.number = true
 -- You can also add relative line numbers, to help with jumping.
 --  Experiment for yourself to see if you like it!
--- vim.opt.relativenumber = true
+vim.opt.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
@@ -241,20 +241,14 @@ require('lazy').setup({
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
   'tjdevries/colorbuddy.nvim',
 
+  --Catppuccin
   'catppuccin/nvim',
   name = 'catppuccin',
   priority = 1000,
 
+  --vscode colors
   'Mofiqul/vscode.nvim',
 
-  'neolooong/whichpy.nvim',
-  dependencies = {
-    -- optional for dap
-    -- "mfussenegger/nvim-dap-python",
-    -- optional for picker support
-    -- "ibhagwan/fzf-lua",
-    -- "nvim-telescope/telescope.nvim",
-  },
   -- NOTE: Plugins can also be added by using a table,
   -- with the first argument being the link and the following
   -- keys can be used to configure plugin behavior/loading/etc.
@@ -481,8 +475,10 @@ require('lazy').setup({
     dependencies = {
       -- Automatically install LSPs and related tools to stdpath for Neovim
       { 'williamboman/mason.nvim', config = true }, -- NOTE: Must be loaded before dependants
+      'mfussenegger/nvim-dap',
       'williamboman/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
+      'jay-babu/mason-nvim-dap.nvim',
 
       -- Useful status updates for LSP.
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
@@ -886,6 +882,9 @@ require('lazy').setup({
       --vim.cmd.colorscheme 'Unitron'
       vim.cmd.colorscheme 'catppuccin'
 
+      --      vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
+      --     vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
+
       -- You can configure highlights by doing something like:
       vim.cmd.hi 'Comment gui=none'
     end,
@@ -989,6 +988,27 @@ require('lazy').setup({
   -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
   { 'habamax/vim-godot', event = 'VimEnter' },
+  { 'vimwiki/vimwiki' },
+  { 'mhinz/vim-startify' },
+  {
+    'linux-cultist/venv-selector.nvim',
+    dependencies = {
+      'neovim/nvim-lspconfig',
+      'mfussenegger/nvim-dap',
+      'mfussenegger/nvim-dap-python', --optional
+      { 'nvim-telescope/telescope.nvim', branch = '0.1.x', dependencies = { 'nvim-lua/plenary.nvim' } },
+    },
+    lazy = false,
+    branch = 'regexp', -- This is the regexp branch, use this for the new version
+    config = function()
+      require('venv-selector').setup()
+    end,
+    keys = {
+      { ',v', '<cmd>VenvSelect<cr>' },
+    },
+  },
+  { 'OmniSharp/omnisharp-vim' },
+  { 'dseeni/vim-mel' },
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    This is the easiest way to modularize your config.
